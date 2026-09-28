@@ -7,12 +7,9 @@ import { login, signup } from "./Authentiction.service.js";
 const router = Router();
 
 
-router.post("/signup", async (req, res, next) => {
-      const validationResult=validators.signupZ.safeParse(req.body)
-    if (!validationResult.success) {
-        throw BadException("Invalid signup credentials", validationResult.error.issues )
-    }
-    const data = await signup(validationResult.data)
+router.post("/signup", validators.signupZ, async (req, res, next) => {
+     
+    const data = await signup(req.validate)
     console.log({ data }, "done ");
     return succsseResponse({
         res,
@@ -20,12 +17,9 @@ router.post("/signup", async (req, res, next) => {
         data
     });
 });
-router.post("/login", async (req, res, next) => {
-    const validationResult=validators.loginZ.safeParse(req.body)
-    if (!validationResult.success) {
-        throw BadException("Invalid login credentials", validationResult.error.issues )
-    }
-    const data = await login(validationResult.data)
+router.post("/login", validators.loginZ, async (req, res, next) => {
+   
+    const data = await login(req.validate)
     console.log({ data }, "done ");
      
     
