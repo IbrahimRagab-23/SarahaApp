@@ -1,0 +1,25 @@
+{
+  "name": "ibrahim-ragab-c48-nodejs-mon-thur-7-10pm-dokki-offline-assignment4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development node --watch ./src/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.9.5",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
+  }
+}
