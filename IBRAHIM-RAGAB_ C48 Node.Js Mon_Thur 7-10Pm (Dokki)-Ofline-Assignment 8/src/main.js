@@ -19,7 +19,7 @@ var corsOptions = {
 
 const app = express()
 await bootstrapDB(app, PORT)
-app.set("trust proxy", true)
+app.set("trust proxy", 1)
 const limiter = generatelimiter({})
 app.use(helmet(),morgan("common"), cors(), 
 limiter, 
