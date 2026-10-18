@@ -1,16 +1,19 @@
 import mongoose, { version } from "mongoose";
-import { GenderEnum, RoleEnum } from "../../common/enum/index.js";
+import { GenderEnum, ProviderEnum, RoleEnum } from "../../common/enum/index.js";
 
 const userSchema = new mongoose.Schema({
     firstName: { type: String, required: true, trim: true, minLength: 2, maxLength: 25, },
     lastName: { type: String, required: true, trim: true, minLength: 2, maxLength: 25, },
     email: { type: String, required: true, unique: true, },
-    password: { type: String, required: true, },
+    password: { type: String, required: function(){
+        return this.provider == ProviderEnum.SYSTEM
+    }, },
     phone: { type: String, minLength: 11, },
     DOB: Date,
     confirmEmail: Date,
     image: String,
     coverimage: [String],
+    ChangeCredentialsTime: Date,    
     gender: {
         type: Number,
         enum: Object.values(GenderEnum),
@@ -20,6 +23,11 @@ const userSchema = new mongoose.Schema({
         type: Number,
         enum: Object.values(RoleEnum),
         default: RoleEnum.USER
+    },
+    provider: {
+        type: Number,
+        enum: Object.values(ProviderEnum),
+        default: ProviderEnum.SYSTEM
     }
 }, {
     timestamps: true,

@@ -25,6 +25,26 @@ export const find = async ({ model, filter = {}, options = {} } = {}) => {
 
   return query.exec();
 };
+export const paginate = async ({ model, filter = {}, options = {} ,page=1,limit=5} = {}) => {
+  const skip = (page - 1) * limit
+     const count = await countDocument({ filter, model }) 
+     const pages = Math.ceil(count / limit)
+     const docs = await find({
+         model,
+         filter,
+         options:{
+          ...options,
+          skip,
+          limit 
+         }
+     })
+ 
+     return {count, pages,current_Page: page, limit, docs }
+};
+export const countDocument = async({filter={},model}) => {
+  return await model.countDocuments(filter);
+
+};
 
 export const findOne = async ({ model, filter = {}, options = {} } = {}) => {
   const query = model.findOne(filter);
@@ -92,10 +112,10 @@ export const findByIdAndUpdate = async ({
 } = {}) => {
   return await model
     .findByIdAndUpdate(
-      id, 
-      update, 
+      id,
+      update,
       {
-        returnDocument: 'after', 
+        returnDocument: 'after',
         runValidators: true,
         ...options,
       }

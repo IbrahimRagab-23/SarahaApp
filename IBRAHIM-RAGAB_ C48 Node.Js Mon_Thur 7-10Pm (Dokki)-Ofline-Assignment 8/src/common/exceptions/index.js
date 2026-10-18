@@ -1,1 +1,1 @@
-export * from "./error.exeception.js"
+export * from "./error.exception.js"
