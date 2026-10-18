@@ -28,7 +28,9 @@ export const generatelimiter = ({
         windowMs: ttl * 60 * 1000,
 
         limit: function (req) {
-            const data = fromWhere(req.ip);
+            const ip = req.ip.replace(/^::ffff:/, "")
+            const data = fromWhere(ip)
+            console.log({ reqIp: req.ip, ip, data })
 
             return data?.country === "EG" ? limit : 0;
         },
